@@ -24,7 +24,7 @@ router.post('/schedule', (req, res, next) => {
       console.log(`Cron executed at ${hour}:${min + 1} IST`);
     },
       {
-        schedule: true,
+        schedule: true, 
         timezone: "Asia/Kolkata",
       }
 
