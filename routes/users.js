@@ -6,18 +6,22 @@ const cron = require('node-cron');
 
 //Workshop #13: NodeJS: Cron Jobs :
 
+router.get("/", (req,res,next) => {
+  res.status(200).json({
+    message: `Cron server `
+  });
+})
+
 router.post('/schedule', (req, res, next) => {
   try {
     var d = new Date();
     var min = d.getMinutes();
-    var date= d.getDate();
+    var date = d.getDate();
     var month = d.getMonth();
     var hour = d.getHours();
 
     cron.schedule(`${min + 1} ${hour} ${date} ${month + 1} * `, () => {
-
-      console.log(`Task Completed at ${hour}: ${min + 1}`);
-
+      console.log(`Cron executed at ${hour}:${min + 1} IST`);
     },
       {
         schedule: true,
@@ -25,15 +29,13 @@ router.post('/schedule', (req, res, next) => {
       }
 
     );
-
-    res.status(201).json({ message: "job Scheduled" });
+    res.status(201).json({ message: "Cron Job Scheduled" });
   }
   catch (error) {
     console.log(error);
-
     res.status(500).send('Server Error');
   }
-    
+
 });
 
 module.exports = router;
